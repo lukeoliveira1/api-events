@@ -1,7 +1,9 @@
 package com.eventostec.api.service;
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.eventostec.api.domain.coupons.Coupon;
 import com.eventostec.api.domain.events.Event;
+import com.eventostec.api.domain.events.EventDetailsDTO;
 import com.eventostec.api.domain.events.EventRequestDTO;
 import com.eventostec.api.domain.events.EventResponseDTO;
 import com.eventostec.api.repositories.EventRepository;
@@ -29,6 +31,9 @@ public class EventService {
 
     @Autowired
     private AddressService addressService;
+
+    @Autowired
+    private CouponService couponService;
 
     @Autowired
     private EventRepository repository;
@@ -92,6 +97,31 @@ public class EventService {
                 event.getEventUrl(),
                 event.getImgUrl())).stream().toList();
 
+    }
+
+    public EventDetailsDTO getEventDetails(UUID eventId) {
+        Event event = this.repository.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found!"));
+
+        List<Coupon> coupons = couponService.consultCoupons(eventId, new Date());
+
+        List<EventDetailsDTO.CouponDTO> couponDTOs = coupons.stream()
+                .map(coupon -> new EventDetailsDTO.CouponDTO(
+                        coupon.getCode(),
+                        coupon.getDiscount(),
+                        coupon.getValid()))
+                .toList();
+
+        return new EventDetailsDTO(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getDate(),
+                event.getAddress() != null ? event.getAddress().getCity() : "",
+                event.getAddress() != null ? event.getAddress().getUf() : "",
+                event.getImgUrl(),
+                event.getEventUrl(),
+                couponDTOs);
     }
 
     public Event createEvent(EventRequestDTO data) {
