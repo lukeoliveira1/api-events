@@ -31,7 +31,7 @@ public class Event {
 
     private String eventUrl;
 
-    private String remote;
+    private Boolean remote;
 
     private Date date;
 
