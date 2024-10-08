@@ -1,5 +1,5 @@
 # API Events
-This project is an API for event management with file uploads, integrating AWS services to send images to S3 and use RDS (Relational Database Service).
+This project is a Spring API for event management with file uploads, integrating AWS services to send images to S3 and utilize RDS (Relational Database Service).
 
 ## Key features:
 
