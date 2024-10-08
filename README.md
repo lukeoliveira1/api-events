@@ -3,8 +3,10 @@ This project is a Spring API for event management with file uploads, integrating
 
 ## Key features:
 
-File Uploads: The API allows users to upload files for events, which are then securely stored in an S3 bucket.
+- File Uploads: <br/>
+  The API allows users to upload files for events, which are then securely stored in an S3 bucket.
 
-Database Integration: The API connects to an RDS instance, ensuring the data associated with file uploads is properly managed and stored.
+- Database Integration: <br/>
+  The API connects to an RDS instance, ensuring the data associated with file uploads is properly managed and stored.
 
 
