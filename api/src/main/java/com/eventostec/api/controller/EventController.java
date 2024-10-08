@@ -66,4 +66,10 @@ public class EventController {
         EventDetailsDTO eventDetails = eventService.getEventDetails(eventId);
         return ResponseEntity.ok(eventDetails);
     }
+
+    @DeleteMapping("/{eventId}")
+    public ResponseEntity delete(@PathVariable UUID eventId) {
+        eventService.deleteEvent(eventId);
+        return ResponseEntity.noContent().build();
+    }
 }

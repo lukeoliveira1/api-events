@@ -124,6 +124,13 @@ public class EventService {
                 couponDTOs);
     }
 
+    public Void deleteEvent(UUID eventId) {
+        this.repository.delete(this.repository.findById(eventId)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"))
+        );
+        return null;
+    }
+
     public Event createEvent(EventRequestDTO data) {
         String imgUrl = null;
 
